@@ -1,6 +1,6 @@
 <template>
-  <div class="recommend" v-loading:[loadingText]='loading'>
-    <scroll class='recommend-content'>
+  <div class="recommend" v-loading="loading">
+    <scroll class="recommend-content">
       <div>
         <div class="slider-wrapper">
           <div class="slider-content">
@@ -8,19 +8,15 @@
           </div>
         </div>
         <div class="recommend-list">
-          <h1 class='list-title' v-show='!loading'>热门歌单推荐</h1>
+          <h1 class="list-title" v-show="!loading">热门歌单推荐</h1>
           <ul>
-            <li v-for='item in albums' class='item' :key='item.id'>
-              <div class='icon'>
-                <img width='60' height='60' v-lazy='item.pic' alt=''>
+            <li v-for="item in albums" class="item" :key="item.id">
+              <div class="icon">
+                <img width="60" height="60" v-lazy="item.pic" alt />
               </div>
-              <div class='text'>
-                <h2 class='name'>
-                  {{item.username}}
-                </h2>
-                <p class='title'>
-                  {{item.title}}
-                </p>
+              <div class="text">
+                <h2 class="name">{{ item.username }}</h2>
+                <p class="title">{{ item.title }}</p>
               </div>
             </li>
           </ul>
@@ -44,8 +40,7 @@ export default {
   data () {
     return {
       sliders: [],
-      albums: [],
-      loadingText: '正在载入...'
+      albums: []
     }
   },
   computed: {
@@ -61,7 +56,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>  .recommend {
+<style lang="scss" scoped>
+.recommend {
   position: fixed;
   width: 100%;
   top: 88px;

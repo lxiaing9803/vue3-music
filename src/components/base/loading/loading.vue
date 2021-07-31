@@ -12,7 +12,7 @@ export default {
   name: 'loading',
   data () {
     return {
-      title: ''
+      title: '正在载入...'
     }
   },
   methods: {
