@@ -1,9 +1,9 @@
 <template>
-  <div class='singer' v-loading = "!singers.length">
+  <div v-loading='!singers.length' class='singer'>
     <index-list :data='singers' @select='selectSinger'></index-list>
     <router-view v-slot='{Component}'>
       <transition appear name='slide'>
-        <component :is='Component' :singer='selecedSinger'></component>
+        <component :is='Component' :singer='selectedSinger'></component>
       </transition>
     </router-view>
   </div>
@@ -46,10 +46,10 @@ export default {
 </script>
 
 <style lang='scss' scoped>
- .singer{
-   position: fixed;
-   width: 100%;
-   top: 88px;
-   bottom: 0;
- }
+.singer {
+  position: fixed;
+  width: 100%;
+  top: 88px;
+  bottom: 0;
+}
 </style>

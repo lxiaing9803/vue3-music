@@ -1,10 +1,10 @@
 <template>
   <div class='progress-bar' @click='onClick'>
     <div class='bar-inner'>
-      <div class='progress' ref='progress' :style='progressStyle'></div>
+      <div ref='progress' :style='progressStyle' class='progress'></div>
       <div
-        class='progress-btn-wrapper'
         :style='btnStyle'
+        class='progress-btn-wrapper'
         @touchstart.prevent='onTouchStart'
         @touchmove.prevent='onTouchMove'
         @touchend.prevent='onTouchEnd'
@@ -42,8 +42,7 @@ export default {
   },
   watch: {
     progress (newProgress) {
-      const barWidth = this.$el.clientWidth - progressBtnWidth
-      this.offset = barWidth * newProgress
+      this.setOffset(newProgress)
     }
   },
   created () {
@@ -73,6 +72,10 @@ export default {
       const barWidth = this.$el.clientWidth - progressBtnWidth
       const progress = offsetWidth / barWidth
       this.$emit('progress-changed', progress)
+    },
+    setOffset (progress) {
+      const barWidth = this.$el.clientWidth - progressBtnWidth
+      this.offset = barWidth * progress
     }
   }
 }
