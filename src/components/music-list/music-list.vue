@@ -3,17 +3,18 @@
     <div class='back' @click='goBack'>
       <i class='icon-back'></i>
     </div>
-    <h1 class='title'>{{title}}</h1>
-    <div class='bg-image' :style='bgImageStyle' ref='bgImage'>
-      <div class='play-btn-wrapper' :style='playBtnStyle'>
-        <div class='play-btn' v-show='songs.length>0' @click='random'>
+    <h1 class='title'>{{ title }}</h1>
+    <div ref='bgImage' :style='bgImageStyle' class='bg-image'>
+      <div :style='playBtnStyle' class='play-btn-wrapper'>
+        <div v-show='songs.length>0' class='play-btn' @click='random'>
           <i class='icon-play'></i>
           <span class='text'>随机播放</span>
         </div>
       </div>
-      <div class='filter' :style='filterStyle'></div>
+      <div :style='filterStyle' class='filter'></div>
     </div>
-    <scroll class='list' :style='scrollStyle' v-loading='loading' v-no-result:[noResultText]='noResult' :probe-type='3' @scroll='onScroll'>
+    <scroll v-loading='loading' v-no-result:[noResultText]='noResult' :probe-type='3' :style='scrollStyle' class='list'
+            @scroll='onScroll'>
       <div class='song-list-wrapper'>
         <song-list :songs='songs' @select='selectItem'></song-list>
       </div>
@@ -22,9 +23,9 @@
 </template>
 
 <script>
-import Scroll from '@/components/base/scroll/scroll'
+import Scroll from '@/components/wrap-scroll'
 import SongList from '@/components/base/song-list/song-list'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 const RESERVED_HEIGHT = 40
 export default {
@@ -98,8 +99,10 @@ export default {
       }
     },
     scrollStyle () {
+      const bottom = this.playlist.length ? '60px' : '0'
       return {
-        top: `${this.imageHeight}px`
+        top: `${this.imageHeight}px`,
+        bottom
       }
     },
     filterStyle () {
@@ -113,7 +116,8 @@ export default {
       return {
         backdropFilter: `blur(${blur}px)`
       }
-    }
+    },
+    ...mapState(['playlist'])
   },
   mounted () {
     this.imageHeight = this.$refs.bgImage.clientHeight
@@ -127,7 +131,10 @@ export default {
     onScroll (pos) {
       this.scrollY = -pos.y
     },
-    selectItem ({ song, index }) {
+    selectItem ({
+      song,
+      index
+    }) {
       this.selectPlay({
         list: this.songs,
         index
@@ -144,12 +151,14 @@ export default {
 .music-list {
   position: relative;
   height: 100%;
+
   .back {
     position: absolute;
     top: 0;
     left: 6px;
     z-index: 20;
     transform: translateZ(2px);
+
     .icon-back {
       display: block;
       padding: 10px;
@@ -157,6 +166,7 @@ export default {
       color: $color-theme;
     }
   }
+
   .title {
     position: absolute;
     top: 0;
@@ -170,16 +180,19 @@ export default {
     font-size: $font-size-large;
     color: $color-text;
   }
+
   .bg-image {
     position: relative;
     width: 100%;
     transform-origin: top;
     background-size: cover;
+
     .play-btn-wrapper {
       position: absolute;
       bottom: 20px;
       z-index: 10;
       width: 100%;
+
       .play-btn {
         box-sizing: border-box;
         width: 135px;
@@ -191,18 +204,21 @@ export default {
         border-radius: 100px;
         font-size: 0;
       }
+
       .icon-play {
         display: inline-block;
         vertical-align: middle;
         margin-right: 6px;
         font-size: $font-size-medium-x;
       }
+
       .text {
         display: inline-block;
         vertical-align: middle;
         font-size: $font-size-small;
       }
     }
+
     .filter {
       position: absolute;
       top: 0;
@@ -212,11 +228,13 @@ export default {
       background: rgba(7, 17, 27, 0.4);
     }
   }
+
   .list {
     position: absolute;
     bottom: 0;
     width: 100%;
     z-index: 0;
+
     .song-list-wrapper {
       padding: 20px 30px;
       background: $color-background;

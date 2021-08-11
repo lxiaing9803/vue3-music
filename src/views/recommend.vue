@@ -1,22 +1,22 @@
 <template>
-  <div class="recommend" v-loading="loading">
-    <scroll class="recommend-content">
+  <div v-loading='loading' class='recommend'>
+    <scroll class='recommend-content'>
       <div>
-        <div class="slider-wrapper">
-          <div class="slider-content">
-            <slider v-if="sliders.length" :sliders="sliders"></slider>
+        <div class='slider-wrapper'>
+          <div class='slider-content'>
+            <slider v-if='sliders.length' :sliders='sliders'></slider>
           </div>
         </div>
-        <div class="recommend-list">
-          <h1 class="list-title" v-show="!loading">热门歌单推荐</h1>
+        <div class='recommend-list'>
+          <h1 v-show='!loading' class='list-title'>热门歌单推荐</h1>
           <ul>
-            <li v-for="item in albums" class="item" :key="item.id">
-              <div class="icon">
-                <img width="60" height="60" v-lazy="item.pic" alt />
+            <li v-for='item in albums' :key='item.id' class='item'>
+              <div class='icon'>
+                <img v-lazy='item.pic' alt height='60' width='60' />
               </div>
-              <div class="text">
-                <h2 class="name">{{ item.username }}</h2>
-                <p class="title">{{ item.title }}</p>
+              <div class='text'>
+                <h2 class='name'>{{ item.username }}</h2>
+                <p class='title'>{{ item.title }}</p>
               </div>
             </li>
           </ul>
@@ -29,7 +29,7 @@
 <script>
 import { getRecommend } from '@/service/recommend'
 import Slider from '@/components/base/slider/slider'
-import Scroll from '@/components/base/scroll/scroll'
+import Scroll from '@/components/wrap-scroll'
 
 export default {
   name: 'recommond',
@@ -56,22 +56,25 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 .recommend {
   position: fixed;
   width: 100%;
   top: 88px;
   bottom: 0;
   overflow: scroll;
+
   .recommend-content {
     height: 100%;
     overflow: hidden;
+
     .slider-wrapper {
       position: relative;
       width: 100%;
       height: 0;
       padding-top: 40%;
       overflow: hidden;
+
       .slider-content {
         position: absolute;
         left: 0;
@@ -80,6 +83,7 @@ export default {
         height: 100%;
       }
     }
+
     .recommend-list {
       .list-title {
         height: 65px;
@@ -88,6 +92,7 @@ export default {
         font-size: $font-size-medium;
         color: $color-theme;
       }
+
       .item {
         display: flex;
         box-sizing: border-box;
@@ -99,6 +104,7 @@ export default {
           width: 60px;
           padding-right: 20px;
         }
+
         .text {
           display: flex;
           flex-direction: column;
@@ -108,10 +114,12 @@ export default {
           overflow: hidden;
           font-size: $font-size-medium;
         }
+
         .name {
           margin-bottom: 10px;
           color: $color-text;
         }
+
         .title {
           color: $color-text-d;
         }
